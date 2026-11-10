@@ -30,6 +30,8 @@ MariaDB, Redis, Prometheus, Grafana, Loki, Alloy는 각각 Docker named volume�
 
 위 설정 파일 10개는 조사 당시 서버 파일과 SHA-256이 동일한 바이트로 보존했다. Secret 제거에 따른 파일 차이는 없다. 현재 운영 파일과 이 저장소가 앞으로 자동 동기화되지는 않는다.
 
+두 배포 스크립트는 서버에서 실행 권한이 있으며 Git에서도 실행 비트를 보존한다. Git은 파일의 세부 권한 전체를 보존하지 않으므로 서버의 소유자·그룹·쓰기 권한을 이 저장소만으로 재현할 수는 없다.
+
 ## 저장소 경계
 
 Backend의 Dockerfile·Compose·.env.example·workflow는 [Backend 저장소](https://github.com/team-haribo/GOMS-Backend-V3)에서 이미 추적한다. Bot의 Dockerfile·Compose는 서버에서 실제 사용하지만 [Bot 저장소](https://github.com/team-haribo/GOMS-Bot-V1)의 서버 체크아웃에서는 미추적이다. Bot 코드와 빌드 설정의 단일 원본은 Bot 저장소로 정리할 대상이며 이번 저장소에 복사하지 않았다. 두 앱 저장소는 이번 작업에서 변경하지 않았다.

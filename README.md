@@ -10,8 +10,8 @@ GOMS 운영 서버에서 2026-11-10에 실제 사용 중임을 확인한 호스�
 flowchart LR
   Client[Client] -->|HTTPS| Nginx[Nginx on host]
   Nginx -->|127.0.0.1:8080| Backend[Backend]
-  Backend --- MariaDB[(MariaDB volume)]
-  Backend --- Redis[(Redis volume)]
+  Backend --> MariaDB[(MariaDB)]
+  Backend --> Redis[(Redis)]
   Prometheus[Prometheus] -->|/actuator/prometheus| Backend
   Prometheus --> NodeExporter[Node Exporter]
   Nginx -->|GOMS log files| Alloy[Alloy]
@@ -24,6 +24,10 @@ flowchart LR
 ## Services
 
 운영 서버의 Docker Compose 프로젝트는 Backend 3개(앱, MariaDB, Redis), Bot 1개, Monitoring 5개(Prometheus, Grafana, Loki, Alloy, Node Exporter) 컨테이너로 구성된다. Nginx는 호스트 서비스다. [인프라 현황](docs/infrastructure.md)에 네트워크, 볼륨, 서버 경로를 기록했다.
+
+## Technology Stack
+
+Ubuntu 22.04 · Docker Compose · Nginx · MariaDB 11.4 · Redis 7.4 · Prometheus · Grafana · Loki · Alloy · Node Exporter
 
 ## Repository Structure
 
@@ -42,7 +46,7 @@ Backend와 Bot의 각 main push workflow가 서버의 별도 스크립트를 호
 
 Prometheus, Loki, Alloy와 Grafana datasource는 파일로 구성된다. Grafana Dashboard·Alert의 실제 목록과 관리 방식은 확인되지 않았다. [모니터링 문서](docs/monitoring.md)를 참조한다.
 
-## Operations
+## Operations & Documentation
 
 [장애 대응 문서](docs/troubleshooting.md)는 읽기 전용 확인 명령과 확인되지 않은 백업·복구 조건을 기록한다. 이 저장소에는 Secret, 인증서, DB dump, Docker volume, 로그, Bot 자동화 상태를 보존하지 않는다. 기존 .env의 값과 재주입 절차는 확인되지 않아 이 저장소만으로 재배포·재구축할 수 있다고 단정하지 않는다.
 
