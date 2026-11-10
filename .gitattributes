@@ -1,0 +1,2 @@
+* text eol=lf
+scripts/deploy-goms.sh whitespace=-blank-at-eof

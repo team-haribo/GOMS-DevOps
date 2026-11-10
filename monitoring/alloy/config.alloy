@@ -1,0 +1,44 @@
+loki.source.file "goms_access" {
+  targets = [
+    {
+      __path__ = "/var/log/nginx/goms_access.log",
+      job      = "nginx",
+      service  = "goms",
+      log_type = "access",
+    },
+  ]
+
+  forward_to = [loki.write.local.receiver]
+}
+
+loki.source.file "goms_error" {
+  targets = [
+    {
+      __path__ = "/var/log/nginx/goms_error.log",
+      job      = "nginx",
+      service  = "goms",
+      log_type = "error",
+    },
+  ]
+
+  forward_to = [loki.write.local.receiver]
+}
+
+loki.source.file "goms_observability" {
+  targets = [
+    {
+      __path__ = "/var/log/nginx/goms_observability.log",
+      job      = "nginx",
+      service  = "goms",
+      log_type = "json_access",
+    },
+  ]
+
+  forward_to = [loki.write.local.receiver]
+}
+
+loki.write "local" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}

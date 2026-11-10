@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+id_*
+*.log
+*.sql
+*.sql.gz
+*.dump
+*.bak
+*.backup
+*.swp
+data/
+backups/
